@@ -12,17 +12,17 @@ import org.activiti.engine.task.Task;
 public class FirstAct {
 
     public static void main(String[] args) {
-        // 启动工作流程
+        // 创建流程引擎
         ProcessEngine engine = ProcessEngineConfiguration.createProcessEngineConfigurationFromResource("activiti.cfg.xml").buildProcessEngine();
 
-        // 存储服务
+        // 获得流程存储服务组件
         RepositoryService repositoryService = engine.getRepositoryService();
-        // 运行时服务
+        // 获得运行时服务组件
         RuntimeService runtimeService = engine.getRuntimeService();
-        //任务服务
+        //获得流程任务组件
         TaskService taskService = engine.getTaskService();
 
-        // 发布流程
+        // 发布流程文件
         repositoryService.createDeployment().addClasspathResource("first.bpmn").deploy();
         // 启动流程
         ProcessInstance pi = runtimeService.startProcessInstanceByKey("myProcess_1");
@@ -40,6 +40,9 @@ public class FirstAct {
         // 经理审核完毕流程结束
         task = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
         System.out.println("流程结束：" +task);
+
+        //关闭流程引擎
+        engine.close();
 
     }
 }
