@@ -1,4 +1,49 @@
-## 一、activiti介绍
+## 一、工作流介绍
+
+### 1.1 什么是工作流
+
+- **工作流（workflow）**：是对工作流程及其个操作步骤之间业务规则的抽象、概括描述
+- **工作流建模**：即将工作流程中的工作如何前后组织在一起的逻辑和规则，在计算机中以恰当的模型表达并对其实施计算
+- **要解决的问题**：是为实现某个业务目标，利用计算机在多个参与者之间按某种预定规则自动传递文档、信息或者任务
+
+### 1.2 工作流对团队的作用
+
+1. 提高效率，减少等待
+2. 规范行为，落实制度
+3. 协同内外，快速响应
+4. 监控全面，提升执行
+
+### 1.3 工作流引擎技术选型
+
+| JBPM        | Activiti |
+| ----------- | -------- |
+| Hibernate   | Mybatis  |
+| Drools Flow | JBPM4    |
+| JPA         | Spring   |
+| Message     | RESTFUL  |
+| ......      | ......   |
+
+为什么选择`Activiti6.0`？
+
+1. 老牌、程数、稳定、满足`BPMN2.0`规范
+
+2. 用户众多、社区活跃、趋势良好
+
+3. 易于上手基于`spring`、`mybatis`常用互联网技术堆栈
+
+### 1.4 BPMN2.0规范
+
+​	Business Process Model and Notation 是一套业务流程模型与符号建模标准；
+
+精准的执行来描述元素的操作；以XML为载体，以符号可视化业务。
+
+BPMN2.0元素：
+
+- 流对象FlowObjects
+- 连接对象ConnectingObject
+- 数据Data
+- 泳道Swimlanes
+- 描述对象Artifacts
 
 ## 二、activiti入门案例
 
@@ -29,7 +74,7 @@
       
   // 3. 通过输入流读取配置文件（可以指定bean的名称，bean必须存在）
   createProcessEngineConfigurationFromInputStream(InputStream inputStream)
-      createProcessEngineConfigurationFromInputStream(InputStream inputStream, String beanName)
+  createProcessEngineConfigurationFromInputStream(InputStream inputStream, String beanName)
   ~~~
 
 #### 3.1.2 数据源配置
