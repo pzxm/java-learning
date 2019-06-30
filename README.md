@@ -188,26 +188,26 @@ public void deployProcessDefinition_classpath() {
 
   `SELECT * FROM act_re_deployment` 
 
-  ![](D:\Idea Projects\java-learning\images\流程部署信息.png)
+  ![](/images/流程部署信息.png)
 
 - 流程定义表`act_re_procdef`：存放`bpmn`文件信息,`KEY_`值相同会进行版本升级
   `SELECT * FROM act_re_procdef` 
 
-  ![](D:\Idea Projects\java-learning\images\act_re_procdef表.png)
+  ![](/images/act_re_procdef表.png)
 
-  ![](D:\Idea Projects\java-learning\images\helloword.bpmn文件.png)
+  ![](/images/helloword.bpmn文件.png)
 
 - 资源文件表`act_ge_bytearray`  存放`bpmn`文件和图片
 
   `SELECT * FROM act_ge_bytearray` 
 
-  ![](D:\Idea Projects\java-learning\images\act_ge_bytearray表.png)
+  ![](/images/act_ge_bytearray表.png)
 
 - 主键生成策略表`act_ge_property`  指定下一个流程部署`ID_`
 
   `SELECT * FROM act_ge_property`
 
-  ![](D:\Idea Projects\java-learning\images\act_ge_property表.png)
+  ![](/images/act_ge_property表.png)
 
 ##### 4.1.1.2 部署zip格式流程定义文件
 
@@ -246,47 +246,47 @@ public void deployProcessDefinition_classpath() {
 #### 4.1.2 查询流程定义
 
 ~~~java
-	@Test
-	public void findProcessDefinition() {
-		List<ProcessDefinition> list = ProcessEngines.getDefaultProcessEngine()
-			.getRepositoryService() // 获取流程定义相关service
-			.createProcessDefinitionQuery() // 创建流程定义查询
-			/**指定查询条件*/
-            // 使用部署对象ID查询
-//			.deploymentId(deploymentId) 
-            //使用流程定义id查询
-//			.processDefinitionId(processDefinitionId) 
-            // 使用流程定义的key查询
-//			.processDefinitionKey(processDefinitionKey) 
-            // 使用流程定义名称模糊查询
-//			.processDefinitionNameLike(processDefinitionNameLike) 
-			/**排序*/
-			.orderByProcessDefinitionVersion().asc() // 版本升序排序
-//			.orderByProcessDefinitionName().desc() // 流程定义名称降序排序
-			
-			/**返回结果集*/
-			.list(); // 返回一个集合列表,封装流程定义
-//			.singleResult(); // 返回唯一结果集
-//			.count(); // 返回结果集数量
-//			.listPage(firstResult, maxResults); //分页查询
-		
-		list.forEach(pd -> {
-            // 流程定义key + 版本 + 部署id减去最后位 + 版本
-			System.out.println("流程定义id：" + pd.getId()); 
-            // 对应helloword.bpmn文件中的name
-			System.out.println("流程定义名称：" + pd.getName()); 
-            // 对应helloword.bpmn文件中的id
-			System.out.println("流程定义key：" + pd.getKey()); 
-            // 流程定义版本, key相同版本加1, 默认版本为1
-			System.out.println("流程定义版本：" + pd.getVersion());	
-            // bpmn的文件名称
-			System.out.println("bpmn资源文件名称：" + pd.getResourceName()); 
-             // 图片名称
-			System.out.println("png资源文件名称：" + pd.getDiagramResourceName());
-			System.out.println("部署对象id：" + pd.getDeploymentId());
-			System.out.println("##########################################");
-		});
-		/**
+@Test
+public void findProcessDefinition() {
+    List<ProcessDefinition> list = ProcessEngines.getDefaultProcessEngine()
+        .getRepositoryService() // 获取流程定义相关service
+        .createProcessDefinitionQuery() // 创建流程定义查询
+        /**指定查询条件*/
+        // 使用部署对象ID查询
+        //.deploymentId(deploymentId) 
+        //使用流程定义id查询
+        //.processDefinitionId(processDefinitionId) 
+        // 使用流程定义的key查询
+        //.processDefinitionKey(processDefinitionKey) 
+        // 使用流程定义名称模糊查询
+        //.processDefinitionNameLike(processDefinitionNameLike) 
+        /**排序*/
+        .orderByProcessDefinitionVersion().asc() // 版本升序排序
+        //.orderByProcessDefinitionName().desc() // 流程定义名称降序排序
+
+        /**返回结果集*/
+        .list(); // 返回一个集合列表,封装流程定义
+    //	.singleResult(); // 返回唯一结果集
+    //	.count(); // 返回结果集数量
+    //	.listPage(firstResult, maxResults); //分页查询
+
+    list.forEach(pd -> {
+        // 流程定义key + 版本 + 部署id减去最后位 + 版本
+        System.out.println("流程定义id：" + pd.getId()); 
+        // 对应helloword.bpmn文件中的name
+        System.out.println("流程定义名称：" + pd.getName()); 
+        // 对应helloword.bpmn文件中的id
+        System.out.println("流程定义key：" + pd.getKey()); 
+        // 流程定义版本, key相同版本加1, 默认版本为1
+        System.out.println("流程定义版本：" + pd.getVersion());	
+        // bpmn的文件名称
+        System.out.println("bpmn资源文件名称：" + pd.getResourceName()); 
+        // 图片名称
+        System.out.println("png资源文件名称：" + pd.getDiagramResourceName());
+        System.out.println("部署对象id：" + pd.getDeploymentId());
+        System.out.println("##########################################");
+    });
+    /**
 		流程定义id：helloword:4:15004
 		流程定义名称：hellowordProcess
 		流程定义key：helloword
@@ -296,108 +296,108 @@ public void deployProcessDefinition_classpath() {
 		部署对象id：15001
 		##########################################
 		*/
-	}
+}
 ~~~
 
 #### 4.1.3 删除流程定义
 
 ~~~java
-	@Test
-	public void deleteProcessDefinition() {
-		String deploymentId = "15001";
-		/**
+@Test
+public void deleteProcessDefinition() {
+    String deploymentId = "15001";
+    /**
 		 * 不带级联的删除
 		 * 只能删除没有启动的流程,如果流程启动，就会抛出异常
 		 */
-//		ProcessEngines.getDefaultProcessEngine()
-//			.getRepositoryService()
-//			.deleteDeployment(deploymentId ); // 使用部署id删除流程定义
-//		System.out.println("删除成功");
-		
-		/**
+    //		ProcessEngines.getDefaultProcessEngine()
+    //			.getRepositoryService()
+    //			.deleteDeployment(deploymentId ); // 使用部署id删除流程定义
+    //		System.out.println("删除成功");
+
+    /**
 		 *  级联删除流程定义
 		 * 可以删除以启动的流程 "慎用"
 		 */
-		ProcessEngines.getDefaultProcessEngine()
-		.getRepositoryService()
-		.deleteDeployment(deploymentId, true); // 使用部署id删除流程定义.级联删除
-	}
+    ProcessEngines.getDefaultProcessEngine()
+        .getRepositoryService()
+        .deleteDeployment(deploymentId, true); // 使用部署id删除流程定义.级联删除
+}
 ~~~
 
 4.4 查看流程图
 
 ~~~java
-	@Test
-	public void viewPic() {
-		String deploymentId = "12501";
-		String resourceName = "";
-		// 获取流程定义资源文件
-		List<String> resourceNames = ProcessEngines.getDefaultProcessEngine()
-			.getRepositoryService()
-			.getDeploymentResourceNames(deploymentId);
-		
-		// 获取图片资源名称
-		for (String name : resourceNames) {
-			if (name.endsWith(".png")) {
-				resourceName = name;
-			}
-		};
-		// 获取图片输入流
-		InputStream inputStream = ProcessEngines.getDefaultProcessEngine()
-			.getRepositoryService()
-            // 通过部署id和资源名称 查询当前流程图
-			.getResourceAsStream(deploymentId, resourceName); 
-		
-		// 将图片生成到D 盘下
-		File file = new File("D:/"+resourceName);
-		try {
-			FileUtils.copyInputStreamToFile(inputStream, file);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+@Test
+public void viewPic() {
+    String deploymentId = "12501";
+    String resourceName = "";
+    // 获取流程定义资源文件
+    List<String> resourceNames = ProcessEngines.getDefaultProcessEngine()
+        .getRepositoryService()
+        .getDeploymentResourceNames(deploymentId);
+
+    // 获取图片资源名称
+    for (String name : resourceNames) {
+        if (name.endsWith(".png")) {
+            resourceName = name;
+        }
+    };
+    // 获取图片输入流
+    InputStream inputStream = ProcessEngines.getDefaultProcessEngine()
+        .getRepositoryService()
+        // 通过部署id和资源名称 查询当前流程图
+        .getResourceAsStream(deploymentId, resourceName); 
+
+    // 将图片生成到D 盘下
+    File file = new File("D:/"+resourceName);
+    try {
+        FileUtils.copyInputStreamToFile(inputStream, file);
+    } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
+}
 ~~~
 
 #### 4.1.4 查询最新版本流程定义
 
 ~~~java
-	/**
-	 *  附加功能：查询最新版本流程定义
-	 */
-	@Test
-	public void findLastVersionProcessDefinition() {
-		String processDefinitionKey = "helloword";
-		ProcessDefinition processDefinition = ProcessEngines
-            .getDefaultProcessEngine()
-			.getRepositoryService()
-			.createProcessDefinitionQuery()
-			.processDefinitionKey(processDefinitionKey )
-			.latestVersion()
-			.singleResult();
-		System.out.println("流程定义版本: " + processDefinition.getVersion());
-	}
+/**
+ *  附加功能：查询最新版本流程定义
+ */
+@Test
+public void findLastVersionProcessDefinition() {
+    String processDefinitionKey = "helloword";
+    ProcessDefinition processDefinition = ProcessEngines
+        .getDefaultProcessEngine()
+        .getRepositoryService()
+        .createProcessDefinitionQuery()
+        .processDefinitionKey(processDefinitionKey )
+        .latestVersion()
+        .singleResult();
+    System.out.println("流程定义版本: " + processDefinition.getVersion());
+}
 ~~~
 
 #### 4.1.5 删除所有key相同的流程定义
 
 ~~~java
 @Test
-	public void deleteProcessDefinitionByKey() {
-		ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
-		RepositoryService repositoryService = processEngine.getRepositoryService();
-		// 1. 使用流程定义key 查询所有流程部署
-		String processDefinitionKey = "helloword";
-		List<ProcessDefinition> list = repositoryService
-			.createProcessDefinitionQuery()
-			.processDefinitionKey(processDefinitionKey)
-			.list();
-		// 2. 删除所有流程定义
-		for (ProcessDefinition pd : list) {
-			String deploymentId = pd.getDeploymentId();
-			repositoryService.deleteDeployment(deploymentId,true);
-		}
-	}
+public void deleteProcessDefinitionByKey() {
+    ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+    RepositoryService repositoryService = processEngine.getRepositoryService();
+    // 1. 使用流程定义key 查询所有流程部署
+    String processDefinitionKey = "helloword";
+    List<ProcessDefinition> list = repositoryService
+        .createProcessDefinitionQuery()
+        .processDefinitionKey(processDefinitionKey)
+        .list();
+    // 2. 删除所有流程定义
+    for (ProcessDefinition pd : list) {
+        String deploymentId = pd.getDeploymentId();
+        repositoryService.deleteDeployment(deploymentId,true);
+    }
+}
 ~~~
 
 ### 4.2 流程实例
@@ -407,30 +407,30 @@ public void deployProcessDefinition_classpath() {
 - 启动流程实例前必须先部署流程定义文件
 
   ~~~java
-  	/**
-  	 * 2. 启动流程实例
-  	 */
-  	@Test
-  	public void startProcessInstance() {
-  		// 1. 获取流程引擎对象
-  		ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+  /**
+   * 2. 启动流程实例
+   */
+  @Test
+  public void startProcessInstance() {
+      // 1. 获取流程引擎对象
+      ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
   
-  		// 2. 获取runtimeService(正在执行的流程实例和执行对象相关的service)
-  		RuntimeService runtimeService = processEngine.getRuntimeService();
+      // 2. 获取runtimeService(正在执行的流程实例和执行对象相关的service)
+      RuntimeService runtimeService = processEngine.getRuntimeService();
   
-  		/**
+      /**
   		 * 3.根据流程定义key启动流程 
   		 * key对应流程定义bpmn文件中的id属性 即act_re_procdef表中的字段 :"KEY"
   		 * 使用key启动默认启动最新版本的流程定义
   		 */
-  		String key = "helloword";
-  		// 流程实例对象
-  		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(key);
-  		// 表act_ru_execution
-  		System.out.println("流程实例id:" + processInstance.getId()); // 流程实例id:2501
-  		System.out.println("流程定义id:" + processInstance.getProcessDefinitionId()); // 流程定义id:helloword:1:4
-  		System.out.println("流程定义名称:" + processInstance.getProcessDefinitionName()); // 流程定义名称:null
-  	}
+      String key = "helloword";
+      // 流程实例对象
+      ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(key);
+      // 表act_ru_execution
+      System.out.println("流程实例id:" + processInstance.getId()); // 流程实例id:2501
+      System.out.println("流程定义id:" + processInstance.getProcessDefinitionId()); // 流程定义id:helloword:1:4
+      System.out.println("流程定义名称:" + processInstance.getProcessDefinitionName()); // 流程定义名称:null
+  }
   ~~~
 
 ##### 4.2.1.1 流程实例相关表
@@ -439,7 +439,7 @@ public void deployProcessDefinition_classpath() {
 
   `SELECT * FROM act_ru_execution` 存放正在执行的流程实例数据
 
-  ![](D:\Idea Projects\java-learning\images\act_ru_execution表.png)
+  ![](/images/act_ru_execution表.png)
 
   **注意：**
 
@@ -451,138 +451,138 @@ public void deployProcessDefinition_classpath() {
 
   `SELECT * FROM act_hi_procinst`
 
-  ![](D:\Idea Projects\java-learning\images\act_hi_procinst表.png)
+  ![](/images/act_hi_procinst表.png)
 
 - 正在执行的任务表`act_ru_task` 存放正在执行的任务数据（只有节点是`UserTask`时此表才有数据）
 
   `SELECT * FROM act_ru_task`
 
-  ![](D:\Idea Projects\java-learning\images\act_ru_task表.png)
+  ![](/images/act_ru_task表.png)
 
 - 任务历史表`act_hi_taskinst` 存放任务历史数据 （只有节点是`UserTask`时此表才有数据）
 
   `SELECT * FROM act_hi_taskinst`
 
-  ![](D:\Idea Projects\java-learning\images\act_hi_taskinst表.png)
+  ![](/images/act_hi_taskinst表.png)
 
 - 活动节点历史表`act_hi_actinst` 所有活动节点历史数据
 
   `SELECT * FROM act_hi_actinst`
 
-  ![](D:\Idea Projects\java-learning\images\act_hi_actinst表.png)
+  ![](/images/act_hi_actinst表.png)
 
 #### 4.2.2 查询个人任务列表
 
 ~~~java
-	@Test
-	public void findPersonalTaskList() {
-		String assignee = "王五";
-		 List<Task> list = ProcessEngines.getDefaultProcessEngine()
-				.getTaskService()
-				.createTaskQuery()
-				/**WHERE 条件*/
-				.taskAssignee(assignee) // 指定办理人
-//				.deploymentId(deploymentId) // 根据部署id查询
-//				.processDefinitionKey(processDefinitionKey) // 根据流程定义key查询
-//				.processInstanceId(processInstanceId) // 根据流程实例id查询
-				/**ORDER BY 排序*/
-//				.orderByTaskAssignee() // 根据办理人排序
-				.orderByTaskCreateTime() // 根据任务创建时间排序
-				/**结果集*/
-//				.singleResult() //单个结果
-//				.count()	//结果个数
-				.list();
-		// ===================== 遍历结果集===================
-		
-		list.forEach(t -> {
-			System.out.println("任务id：" + t.getId());
-			System.out.println("任务名称：" + t.getName());
-			System.out.println("任务办理人：" + t.getAssignee());
-			System.out.println("任务创建时间：" + t.getCreateTime());
-			System.out.println("流程实例id：" + t.getProcessInstanceId());
-			System.out.println("流程定义id：" + t.getProcessDefinitionId());
-			System.out.println("执行对象id：" + t.getExecutionId());
-			System.out.println("############################################");
-		});
-	}
+@Test
+public void findPersonalTaskList() {
+    String assignee = "王五";
+    List<Task> list = ProcessEngines.getDefaultProcessEngine()
+        .getTaskService()
+        .createTaskQuery()
+        /**WHERE 条件*/
+        .taskAssignee(assignee) // 指定办理人
+        //.deploymentId(deploymentId) // 根据部署id查询
+        //.processDefinitionKey(processDefinitionKey) // 根据流程定义key查询
+        //.processInstanceId(processInstanceId) // 根据流程实例id查询
+        /**ORDER BY 排序*/
+        //.orderByTaskAssignee() // 根据办理人排序
+        .orderByTaskCreateTime() // 根据任务创建时间排序
+        /**结果集*/
+        //.singleResult() //单个结果
+        //.count()	//结果个数
+        .list();
+    // ===================== 遍历结果集===================
+
+    list.forEach(t -> {
+        System.out.println("任务id：" + t.getId());
+        System.out.println("任务名称：" + t.getName());
+        System.out.println("任务办理人：" + t.getAssignee());
+        System.out.println("任务创建时间：" + t.getCreateTime());
+        System.out.println("流程实例id：" + t.getProcessInstanceId());
+        System.out.println("流程定义id：" + t.getProcessDefinitionId());
+        System.out.println("执行对象id：" + t.getExecutionId());
+        System.out.println("############################################");
+    });
+}
 ~~~
 
 #### 4.2.3 完成个人任务
 
 ~~~java
-	@Test
-	public void completeMyPersonalTask() {
-		String taskId = "22504";
-		ProcessEngines.getDefaultProcessEngine()
-		.getTaskService()
-		.complete(taskId);
-	}
+@Test
+public void completeMyPersonalTask() {
+    String taskId = "22504";
+    ProcessEngines.getDefaultProcessEngine()
+        .getTaskService()
+        .complete(taskId);
+}
 ~~~
 
 #### 4.2.4 判断流程是否结束
 
 ~~~java
-	@Test
-	public void isProcessEnd() {
-		String processInstanceId = "22501";
-		ProcessInstance processInstance = ProcessEngines.getDefaultProcessEngine()
-		.getRuntimeService()
-		.createProcessInstanceQuery() // 创建一个流程实例查询对象
-		.processInstanceId(processInstanceId) // 使用流程实例id查询
-		.singleResult();
-		
-		if (processInstance == null) {
-			System.out.println("流程已结束");
-		} else {
-			System.out.println("流程还未结束");
-		}
-	}
+@Test
+public void isProcessEnd() {
+    String processInstanceId = "22501";
+    ProcessInstance processInstance = ProcessEngines.getDefaultProcessEngine()
+        .getRuntimeService()
+        .createProcessInstanceQuery() // 创建一个流程实例查询对象
+        .processInstanceId(processInstanceId) // 使用流程实例id查询
+        .singleResult();
+
+    if (processInstance == null) {
+        System.out.println("流程已结束");
+    } else {
+        System.out.println("流程还未结束");
+    }
+}
 ~~~
 
 #### 4.2.5  查询历史任务
 
 ~~~java
-	@Test
-	public void findHistoryTask() {
-		String assignee = "张三";
-		List<HistoricTaskInstance> list = ProcessEngines.getDefaultProcessEngine()
-			.getHistoryService() // 历史数据相关service
-			.createHistoricTaskInstanceQuery() // 创建历史任务实例查询
-			.taskAssignee(assignee) // 指定历史任务办理人
-			.list();
-		
-		for (HistoricTaskInstance ht : list) {
-			System.out.println("任务id：" + ht.getId());
-			System.out.println("任务名称：" + ht.getName());
-			System.out.println("任务办理人：" + ht.getAssignee());
-			System.out.println("流程实例id：" + ht.getProcessInstanceId());
-			System.out.println("任务开始时间：" + ht.getStartTime());
-			System.out.println("任务结束时间：" + ht.getEndTime());
-			System.out.println("任务持续时间：" + ht.getDurationInMillis());
-			System.out.println("############################");
-		}
-	}
+@Test
+public void findHistoryTask() {
+    String assignee = "张三";
+    List<HistoricTaskInstance> list = ProcessEngines.getDefaultProcessEngine()
+        .getHistoryService() // 历史数据相关service
+        .createHistoricTaskInstanceQuery() // 创建历史任务实例查询
+        .taskAssignee(assignee) // 指定历史任务办理人
+        .list();
+
+    for (HistoricTaskInstance ht : list) {
+        System.out.println("任务id：" + ht.getId());
+        System.out.println("任务名称：" + ht.getName());
+        System.out.println("任务办理人：" + ht.getAssignee());
+        System.out.println("流程实例id：" + ht.getProcessInstanceId());
+        System.out.println("任务开始时间：" + ht.getStartTime());
+        System.out.println("任务结束时间：" + ht.getEndTime());
+        System.out.println("任务持续时间：" + ht.getDurationInMillis());
+        System.out.println("############################");
+    }
+}
 ~~~
 
 4.2.6 查询历史流程实例
 
 ~~~java
-	@Test
-	public void findHistoryProcessInstance() {
-		String processInstanceId = "22501";
-		HistoricProcessInstance hiProcessInstance = ProcessEngines.getDefaultProcessEngine()
-			.getHistoryService() // 历史数据相关service
-			.createHistoricProcessInstanceQuery()
-			.processInstanceId(processInstanceId)
-			.singleResult();
-		
-		System.out.println("流程实例id：" + hiProcessInstance.getId());
-		System.out.println("流程实例名称：" + hiProcessInstance.getName());
-		System.out.println("流程实例定义id：" + hiProcessInstance.getProcessDefinitionId());
-		System.out.println("流程实例定义key：" + hiProcessInstance.getProcessDefinitionKey());
-		System.out.println("流程实例开始时间：" + hiProcessInstance.getStartTime());
-		System.out.println("流程实例结束时间：" + hiProcessInstance.getEndTime());
-	}
+@Test
+public void findHistoryProcessInstance() {
+    String processInstanceId = "22501";
+    HistoricProcessInstance hiProcessInstance = ProcessEngines.getDefaultProcessEngine()
+        .getHistoryService() // 历史数据相关service
+        .createHistoricProcessInstanceQuery()
+        .processInstanceId(processInstanceId)
+        .singleResult();
+
+    System.out.println("流程实例id：" + hiProcessInstance.getId());
+    System.out.println("流程实例名称：" + hiProcessInstance.getName());
+    System.out.println("流程实例定义id：" + hiProcessInstance.getProcessDefinitionId());
+    System.out.println("流程实例定义key：" + hiProcessInstance.getProcessDefinitionKey());
+    System.out.println("流程实例开始时间：" + hiProcessInstance.getStartTime());
+    System.out.println("流程实例结束时间：" + hiProcessInstance.getEndTime());
+}
 ~~~
 
 ### 4.3 流程变量
@@ -634,13 +634,13 @@ public void deployProcessDefinition_classpath() {
 
   `SELECT * FROM act_ru_variable`
 
-  ![](D:\Idea Projects\java-learning\images\act_ru_variable表.png)
+  ![](/images/act_ru_variable表.png)
 
 - 历史流程变量表`act_hi_varinst`
 
   `SELECT * FROM act_hi_varinst`
 
-  ![](D:\Idea Projects\java-learning\images\act_hi_varinst表.png)
+  ![](/images/act_hi_varinst表.png)
 
 #### 4.3.3 获取流程变量
 
@@ -678,19 +678,19 @@ public void deployProcessDefinition_classpath() {
 - 与表`act_hi_procinst`相关
 
 ~~~java
-	@Test
-	public void findHistoryProcessInstance() {
-		HistoricProcessInstance historicProcessInstance = ProcessEngines.getDefaultProcessEngine()
-			.getHistoryService()
-			.createHistoricProcessInstanceQuery()
-			.processInstanceId("22501")
-			.singleResult();
-		
-		System.out.println("历史流程实例id：" + historicProcessInstance.getId());
-		System.out.println("流程定义id：" + historicProcessInstance.getProcessDefinitionId());
-		System.out.println("流程定义名称：" + historicProcessInstance.getProcessDefinitionName());
-		System.out.println("流程定义key：" + historicProcessInstance.getProcessDefinitionKey());
-	}
+@Test
+public void findHistoryProcessInstance() {
+    HistoricProcessInstance historicProcessInstance = ProcessEngines.getDefaultProcessEngine()
+        .getHistoryService()
+        .createHistoricProcessInstanceQuery()
+        .processInstanceId("22501")
+        .singleResult();
+
+    System.out.println("历史流程实例id：" + historicProcessInstance.getId());
+    System.out.println("流程定义id：" + historicProcessInstance.getProcessDefinitionId());
+    System.out.println("流程定义名称：" + historicProcessInstance.getProcessDefinitionName());
+    System.out.println("流程定义key：" + historicProcessInstance.getProcessDefinitionKey());
+}
 ~~~
 
 #### 4.4.2 历史活动查询
@@ -698,26 +698,26 @@ public void deployProcessDefinition_classpath() {
 - 与表`act_hi_actinst`相关
 
 ~~~java
-	@Test
-	public void findHistoryActiviti() {
-		String processInstanceId = "37501";
-		
-		List<HistoricActivityInstance> list = ProcessEngines.getDefaultProcessEngine()
-		.getHistoryService()
-		.createHistoricActivityInstanceQuery()
-		.processInstanceId(processInstanceId)
-		.orderByHistoricActivityInstanceStartTime().asc()
-		.list();
-		
-		for (HistoricActivityInstance hai : list) {
-			System.out.println(hai.getId());
-			System.out.println(hai.getActivityName());
-			System.out.println(hai.getProcessDefinitionId());
-			System.out.println(hai.getProcessInstanceId());
-			System.out.println(hai.getTaskId());
-			System.out.println(hai.getAssignee());
-		}
-	}
+@Test
+public void findHistoryActiviti() {
+    String processInstanceId = "37501";
+
+    List<HistoricActivityInstance> list = ProcessEngines.getDefaultProcessEngine()
+        .getHistoryService()
+        .createHistoricActivityInstanceQuery()
+        .processInstanceId(processInstanceId)
+        .orderByHistoricActivityInstanceStartTime().asc()
+        .list();
+
+    for (HistoricActivityInstance hai : list) {
+        System.out.println(hai.getId());
+        System.out.println(hai.getActivityName());
+        System.out.println(hai.getProcessDefinitionId());
+        System.out.println(hai.getProcessInstanceId());
+        System.out.println(hai.getTaskId());
+        System.out.println(hai.getAssignee());
+    }
+}
 ~~~
 
 #### 4.4.3 历史任务查询
@@ -725,27 +725,27 @@ public void deployProcessDefinition_classpath() {
 - 与表`act_hi_taskinst`相关
 
 ~~~java
-	@Test
-	public void findHistoryTask() {
-		String processInstanceId = "37501";
-		
-		List<HistoricTaskInstance> list = ProcessEngines.getDefaultProcessEngine()
-			.getHistoryService() // 历史数据相关service
-			.createHistoricTaskInstanceQuery() // 创建历史任务实例查询
-			.processInstanceId(processInstanceId)
-			.list();
-		
-		for (HistoricTaskInstance ht : list) {
-			System.out.println("任务id：" + ht.getId());
-			System.out.println("任务名称：" + ht.getName());
-			System.out.println("任务办理人：" + ht.getAssignee());
-			System.out.println("流程实例id：" + ht.getProcessInstanceId());
-			System.out.println("任务开始时间：" + ht.getStartTime());
-			System.out.println("任务结束时间：" + ht.getEndTime());
-			System.out.println("任务持续时间：" + ht.getDurationInMillis());
-			System.out.println("############################");
-		}
-	}
+@Test
+public void findHistoryTask() {
+    String processInstanceId = "37501";
+
+    List<HistoricTaskInstance> list = ProcessEngines.getDefaultProcessEngine()
+        .getHistoryService() // 历史数据相关service
+        .createHistoricTaskInstanceQuery() // 创建历史任务实例查询
+        .processInstanceId(processInstanceId)
+        .list();
+
+    for (HistoricTaskInstance ht : list) {
+        System.out.println("任务id：" + ht.getId());
+        System.out.println("任务名称：" + ht.getName());
+        System.out.println("任务办理人：" + ht.getAssignee());
+        System.out.println("流程实例id：" + ht.getProcessInstanceId());
+        System.out.println("任务开始时间：" + ht.getStartTime());
+        System.out.println("任务结束时间：" + ht.getEndTime());
+        System.out.println("任务持续时间：" + ht.getDurationInMillis());
+        System.out.println("############################");
+    }
+}
 ~~~
 
 #### 4.4.4 历史流程变量查询
@@ -753,48 +753,48 @@ public void deployProcessDefinition_classpath() {
 - 与表`act_hi_varinst`相关
 
 ~~~java
-	@Test
-	public void findHistoryProcessVariables() {
-		String processInstanceId = "37501";
-		
-		List<HistoricVariableInstance> list = ProcessEngines.getDefaultProcessEngine()
-			.getHistoryService()
-			.createHistoricVariableInstanceQuery()
-			.processInstanceId(processInstanceId)
-			.list();
-		
-		for (HistoricVariableInstance hvi : list) {
-			System.out.println("实例流程变量名：" + hvi.getVariableName());
-			System.out.println("实例流程变量值：" + hvi.getValue());
-		}
-	}
+@Test
+public void findHistoryProcessVariables() {
+    String processInstanceId = "37501";
+
+    List<HistoricVariableInstance> list = ProcessEngines.getDefaultProcessEngine()
+        .getHistoryService()
+        .createHistoricVariableInstanceQuery()
+        .processInstanceId(processInstanceId)
+        .list();
+
+    for (HistoricVariableInstance hvi : list) {
+        System.out.println("实例流程变量名：" + hvi.getVariableName());
+        System.out.println("实例流程变量值：" + hvi.getValue());
+    }
+}
 ~~~
 
 ### 4.5 小结
 
-![](D:\Idea Projects\java-learning\images\activiti第一天内容小结.png)
+![](/images/activiti第一天内容小结.png)
 
 ## 五、 流程图组件介绍
 
 ### 5.1 连线
 
-![](D:\Idea Projects\java-learning\images\连线.png)
+![](/images/连线.png)
 
 - 设置流程变量执行指定流程完成任务
 
 ~~~java
-	@Test
-	public void setProcessVariableAndCompleteTask() {
-		String taskId = "72503";
-		String message = "重要";
-		Map<String, Object> variables = new HashMap<>();
-		variables.put("message", message);
-		// 设置流程变量，并完成任务。下一个连线，对应sequenceFlow.bpmn中的${message=='不重要'}
-		ProcessEngines.getDefaultProcessEngine()
-			.getTaskService()
-			.complete(taskId, variables);
-		System.out.println("完成任务，任务ID：" + taskId);
-	}
+@Test
+public void setProcessVariableAndCompleteTask() {
+    String taskId = "72503";
+    String message = "重要";
+    Map<String, Object> variables = new HashMap<>();
+    variables.put("message", message);
+    // 设置流程变量，并完成任务。下一个连线，对应sequenceFlow.bpmn中的${message=='不重要'}
+    ProcessEngines.getDefaultProcessEngine()
+        .getTaskService()
+        .complete(taskId, variables);
+    System.out.println("完成任务，任务ID：" + taskId);
+}
 ~~~
 
 ### 5.2 网关
@@ -803,54 +803,54 @@ public void deployProcessDefinition_classpath() {
 
 - 排它网关相当于`java`中的`if else`结构，可以设置默认执行流程
 
-  ![](D:\Idea Projects\java-learning\images\排它网关.png)
+  ![](/images/排它网关.png)
 
 - 设置流程变量并完成任务
 
 ~~~java
-	@Test
-	public void setProcessVariableAndCompleteTask() {
-		String taskId = "90004";
-		Long money = 800L;
-		Map<String, Object> variables = new HashMap<>();
-		variables.put("money", money);
-		// 设置流程变量，并完成任务。下一个连线，对应sequenceFlow.bpmn中的${message=='不重要'}
-		ProcessEngines.getDefaultProcessEngine()
-			.getTaskService()
-			.complete(taskId, variables);
-		System.out.println("完成任务，任务ID：" + taskId);
-	}
+@Test
+public void setProcessVariableAndCompleteTask() {
+    String taskId = "90004";
+    Long money = 800L;
+    Map<String, Object> variables = new HashMap<>();
+    variables.put("money", money);
+    // 设置流程变量，并完成任务。下一个连线，对应sequenceFlow.bpmn中的${message=='不重要'}
+    ProcessEngines.getDefaultProcessEngine()
+        .getTaskService()
+        .complete(taskId, variables);
+    System.out.println("完成任务，任务ID：" + taskId);
+}
 ~~~
 
-![](D:\Idea Projects\java-learning\images\排它网关condition.png)
+![](/images/排它网关condition.png)
 
 #### 5.2.2 并行网关
 
 - 并行网关流程图
 
-![](D:\Idea Projects\java-learning\images\并行网关流程图.png)
+![](/images/并行网关流程图.png)
 
 - 启动上述并流程后
 
   - `act_ru_execution`表存在一个流程实例和两个执行对象
 
-    ![](D:\Idea Projects\java-learning\images\并行网关执行对象信息.png)
+    ![](/images/并行网关执行对象信息.png)
 
   - `act_hi_procinst`表历史流程实例只有一个
 
-    ![](D:\Idea Projects\java-learning\images\并行网关历史流程实例.png)
+    ![](/images/并行网关历史流程实例.png)
 
   - `act_ru_task`表正在执行的任务有两个：发货、付款
 
-    ![](D:\Idea Projects\java-learning\images\并行网关正在执行任务.png)
+    ![](/images/并行网关正在执行任务.png)
   
   - `act_hi_taskinst`表历史任务两个
   
-    ![](D:\Idea Projects\java-learning\images\并行网关历史任务.png)
+    ![](/images/并行网关历史任务.png)
   
   - `act_hi_actinst`表并行网关历史活动四个
   
-    ![](D:\Idea Projects\java-learning\images\并行网关历史活动.png)
+    ![](/images/并行网关历史活动.png)
 
 - 上述流程结束后
   - `act_ru_execution`表 无正在执行的流程实例和执行对象
@@ -877,46 +877,46 @@ public void deployProcessDefinition_classpath() {
 ​	在任务创建后，意味着**流程会进入等待状态**，知道引擎接收了一个**特定的消息**，这个消息会触发流程穿过接收任务继续执行
 
 ~~~java
-	@Test
-	public void startProcessInstance() {
-		ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
-		String processDefinitionKey = "receiveTask";
-		ProcessInstance processInstance =processEngine.getRuntimeService()
-			.startProcessInstanceByKey(processDefinitionKey);
-		
-		System.out.println("流程实例ID:" +processInstance.getId());
-		System.out.println("流程定义id:" +processInstance.getProcessDefinitionId());
-		/**查询执行对象ID*/
-		Execution execution = processEngine.getRuntimeService()
-			.createExecutionQuery()	// 创建执行对象查询
-			.processInstanceId(processInstance.getId()) // 使用流程实例ID查询
-			.activityId("receivetask1") // 对应receiveTask.bpmn文件中当前活动节点id
-			.singleResult();
-		String executionId = execution.getId();
-		/** 使用流程变量 设置当日销售额，用来传递业务参数*/
-		processEngine.getRuntimeService()
-		 	.setVariable(executionId, "汇总当日销售额", 21000);
-		
-		/**向后执行一步, 如果流程处理等待状态，使得流程继续执行*/
-		processEngine.getRuntimeService()
-			.signal(executionId);
-		
-		/**查询执行对象ID*/
-		Execution execution2 = processEngine.getRuntimeService()
-			.createExecutionQuery()	// 创建执行对象查询
-			.processInstanceId(processInstance.getId()) // 使用流程实例ID查询
-			.activityId("receivetask2") // 对应receiveTask.bpmn文件中当前活动节点id
-			.singleResult();
-		/**从流程变量中获取 当日销售额*/
-		Integer value = (Integer) processEngine.getRuntimeService()
-			.getVariable(execution2.getId(), "汇总当日销售额");
-		
-		System.out.println("给老板发送短信，金额是：" + value);
-		
-		/**向后执行一步, 如果流程处理等待状态，使得流程继续执行*/
-		processEngine.getRuntimeService()
-			.signal(execution2.getId());
-	}
+@Test
+public void startProcessInstance() {
+    ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+    String processDefinitionKey = "receiveTask";
+    ProcessInstance processInstance =processEngine.getRuntimeService()
+        .startProcessInstanceByKey(processDefinitionKey);
+
+    System.out.println("流程实例ID:" +processInstance.getId());
+    System.out.println("流程定义id:" +processInstance.getProcessDefinitionId());
+    /**查询执行对象ID*/
+    Execution execution = processEngine.getRuntimeService()
+        .createExecutionQuery()	// 创建执行对象查询
+        .processInstanceId(processInstance.getId()) // 使用流程实例ID查询
+        .activityId("receivetask1") // 对应receiveTask.bpmn文件中当前活动节点id
+        .singleResult();
+    String executionId = execution.getId();
+    /** 使用流程变量 设置当日销售额，用来传递业务参数*/
+    processEngine.getRuntimeService()
+        .setVariable(executionId, "汇总当日销售额", 21000);
+
+    /**向后执行一步, 如果流程处理等待状态，使得流程继续执行*/
+    processEngine.getRuntimeService()
+        .signal(executionId);
+
+    /**查询执行对象ID*/
+    Execution execution2 = processEngine.getRuntimeService()
+        .createExecutionQuery()	// 创建执行对象查询
+        .processInstanceId(processInstance.getId()) // 使用流程实例ID查询
+        .activityId("receivetask2") // 对应receiveTask.bpmn文件中当前活动节点id
+        .singleResult();
+    /**从流程变量中获取 当日销售额*/
+    Integer value = (Integer) processEngine.getRuntimeService()
+        .getVariable(execution2.getId(), "汇总当日销售额");
+
+    System.out.println("给老板发送短信，金额是：" + value);
+
+    /**向后执行一步, 如果流程处理等待状态，使得流程继续执行*/
+    processEngine.getRuntimeService()
+        .signal(execution2.getId());
+}
 ~~~
 
 ### 5.5 用户任务
@@ -927,11 +927,11 @@ public void deployProcessDefinition_classpath() {
 
   1. 直接指定办理人（实际开发中不够灵活，不推荐使用）
 
-     ![](D:\Idea Projects\java-learning\images\个人任务分配-直接指定办理人.png)
+     ![](/images/个人任务分配-直接指定办理人.png)
 
   2. 使用流程变量设置任务办理人
 
-     ![](D:\Idea Projects\java-learning\images\个人任务分配-流程变量指定办理人.png)
+     ![](/images/个人任务分配-流程变量指定办理人.png)
 
      - 在在代码中启动流程时通过设置流程变量指定任务办理人
 
@@ -948,7 +948,7 @@ public void deployProcessDefinition_classpath() {
 
   3. 使用类动态指定任务办理人
 
-     ![](D:\Idea Projects\java-learning\images\TaskListener实现类指定任务办理人.png)
+     ![](/images/TaskListener实现类指定任务办理人.png)
   
      - 实现`TaskListener`类通过`notify`方法设置任务办理人
   
@@ -975,17 +975,17 @@ public void deployProcessDefinition_classpath() {
   实际工作中，可能当前任务办理人出差或请假无法完成任务办理，则需要**重新指定任务办理人**
 
   ~~~java
-  	@Test
-  	public void setAssigneeTask() {
-  		// 任务id
-  		String taskId = "137504";
-  		// 指定任务办理人
-  		String userId = "张翠山";
-  		// 
-  		ProcessEngines.getDefaultProcessEngine()
-  			.getTaskService()
-  			.setAssignee(taskId, userId);
-  	}
+  @Test
+  public void setAssigneeTask() {
+      // 任务id
+      String taskId = "137504";
+      // 指定任务办理人
+      String userId = "张翠山";
+      // 
+      ProcessEngines.getDefaultProcessEngine()
+          .getTaskService()
+          .setAssignee(taskId, userId);
+  }
   ~~~
 
 #### 5.5.2 组任务
@@ -994,34 +994,34 @@ public void deployProcessDefinition_classpath() {
 
 1. 直接指定组任务办理人
 
-   ![](D:\Idea Projects\java-learning\images\组任务分配-直接指定用户.png)
+   ![](images/组任务分配-直接指定用户.png)
 
 2. 使用流程变量设置任务办理人
 
-   ![](D:\Idea Projects\java-learning\images\组任务分配-流程变量指定用户.png)
+   ![](/images/组任务分配-流程变量指定用户.png)
 
    - 在在代码中启动流程时通过设置流程变量指定任务办理人
 
    ~~~java
-   	@Test
-   	public void startProcessInstance() {
-   		ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
-   		String processDefinitionKey = "groupTask";
-   		
-   		// 启动流程时设置流程变量以指定任务办理人 对应groupTask.bpmn文件中的#{userIds}
-   		Map<String, Object> variables = new HashMap<>();
-   		variables.put("userIds", "小龙女,杨过");
-   		ProcessInstance processInstance = processEngine.getRuntimeService()
-   			.startProcessInstanceByKey(processDefinitionKey, variables );
-   		
-   		System.out.println("流程实例ID:" +processInstance.getId());
-   		System.out.println("流程定义id:" +processInstance.getProcessDefinitionId());
-   	}
+   @Test
+   public void startProcessInstance() {
+       ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+       String processDefinitionKey = "groupTask";
+   
+       // 启动流程时设置流程变量以指定任务办理人 对应groupTask.bpmn文件中的#{userIds}
+       Map<String, Object> variables = new HashMap<>();
+       variables.put("userIds", "小龙女,杨过");
+       ProcessInstance processInstance = processEngine.getRuntimeService()
+           .startProcessInstanceByKey(processDefinitionKey, variables );
+   
+       System.out.println("流程实例ID:" +processInstance.getId());
+       System.out.println("流程定义id:" +processInstance.getProcessDefinitionId());
+   }
    ~~~
 
 3. 使用类指定任务办理人
 
-   ![](D:\Idea Projects\java-learning\images\组任务分配-使用类指定用户.png)
+   ![](/images/组任务分配-使用类指定用户.png)
 
    - 实现`TaskListener`类通过`notify`方法设置任务办理人
 
@@ -1048,15 +1048,15 @@ public void deployProcessDefinition_classpath() {
 ##### 5.5.2.2 拾取组任务
 
 ~~~java
-	@Test
-	public void claim() {
-		String taskId = "147504";
-		String userId = "小A";
-		// 将组任务分配个人
-		ProcessEngines.getDefaultProcessEngine()
-			.getTaskService()
-			.claim(taskId, userId); // userId可以时组任务中的成员也可以是其他成员
-	}
+@Test
+public void claim() {
+    String taskId = "147504";
+    String userId = "小A";
+    // 将组任务分配个人
+    ProcessEngines.getDefaultProcessEngine()
+        .getTaskService()
+        .claim(taskId, userId); // userId可以时组任务中的成员也可以是其他成员
+}
 ~~~
 
 ##### 5.5.2.3 回退到组任务
@@ -1064,37 +1064,37 @@ public void deployProcessDefinition_classpath() {
 - 前提 该任务之前必须是组任务
 
   ```java
-  	@Test
-  	public void setAssigee() {
-  		String taskId = "147504";
-  		ProcessEngines.getDefaultProcessEngine()
-  			.getTaskService()
-  			.setAssignee(taskId, null);
-  	}
+  @Test
+  public void setAssigee() {
+      String taskId = "147504";
+      ProcessEngines.getDefaultProcessEngine()
+          .getTaskService()
+          .setAssignee(taskId, null);
+  }
   ```
 
 ##### 5.5.2.4 添加组任务成员
 
 ~~~java
-	@Test
-	public void addGroupUser() {
-		String taskId = "147504";
-		ProcessEngines.getDefaultProcessEngine()
-			.getTaskService()
-			.addCandidateUser(taskId, "大H"); // 向组任务中添加成员
-	}
+@Test
+public void addGroupUser() {
+    String taskId = "147504";
+    ProcessEngines.getDefaultProcessEngine()
+        .getTaskService()
+        .addCandidateUser(taskId, "大H"); // 向组任务中添加成员
+}
 ~~~
 
 ##### 5.5.2.5 删除组任务成员
 
 ~~~java
-	@Test
-	public void deleteGroupUser() {
-		String taskId = "147504";
-		ProcessEngines.getDefaultProcessEngine()
-		.getTaskService()
-		.deleteCandidateUser(taskId, "小B"); // 向组任务中删除成员
-	}
+@Test
+public void deleteGroupUser() {
+    String taskId = "147504";
+    ProcessEngines.getDefaultProcessEngine()
+        .getTaskService()
+        .deleteCandidateUser(taskId, "小B"); // 向组任务中删除成员
+}
 ~~~
 
 ##### 5.5.2.7 注意
